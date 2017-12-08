@@ -1,0 +1,14 @@
+
+install Prometheus
+
+oc login -u system:admin
+oc adm policy add-cluster-role-to-user cluster-reader system:serviceaccount:myproject:default
+
+oc login -u developer
+oc new-build --binary --name=prometheus
+oc start-build prometheus --from-dir=. --follow
+oc new-app prometheus
+oc expose service prometheus
+
+
+
